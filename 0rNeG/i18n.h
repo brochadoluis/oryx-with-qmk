@@ -1,4 +1,10 @@
+#define PT_OSX_TILD KC_QUOT
+#define PT_CIRC S(KC_NUHS)
+#define PT_ACUT KC_RBRC
+#define PT_GRV S(KC_RBRC)
+#define PT_CCED KC_SCLN
+#define PT_OSX_MORD KC_LBRC
+#define PT_OSX_FORD S(KC_LBRC)
 #define PT_QUOT KC_MINS
 #define PT_COMM KC_COMM
 #define PT_DOT KC_DOT
-#define PT_CCED KC_SCLN
