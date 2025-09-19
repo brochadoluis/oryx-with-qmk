@@ -18,16 +18,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_EQUAL,       KC_EXLM,        KC_AT,          KC_HASH,        KC_DLR,         KC_PERC,        TT(7),                                          KC_TRANSPARENT, KC_CIRC,        KC_AMPR,        KC_ASTR,        KC_LPRN,        KC_RPRN,        KC_MINUS,       
     TG(4),          KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           TT(8),                                          KC_TRANSPARENT, KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           KC_BSLS,        
     KC_PSCR,        MT(MOD_LGUI, KC_A),MT(MOD_LALT, KC_S),MT(MOD_LCTL, KC_D),MT(MOD_LSFT, KC_F),KC_G,           KC_HYPR,                                                                        KC_MEH,         KC_H,           MT(MOD_RSFT, KC_J),MT(MOD_RCTL, KC_K),MT(MOD_RALT, KC_L),MT(MOD_RGUI, KC_SCLN),KC_QUOTE,       
-    CW_TOGG,        KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,                                           KC_N,           KC_M,           KC_COMMA,       KC_DOT,         KC_SLASH,       TG(5),          
-    QK_BOOT,        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_HOME,        LT(6, KC_INSERT),                                                                                                KC_CAPS,        KC_END,         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,                                           KC_N,           KC_M,           KC_COMMA,       KC_DOT,         KC_SLASH,       TG(5),          
+    QK_BOOT,        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_HOME,        LT(6, KC_INSERT),                                                                                                CW_TOGG,        KC_END,         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_SPACE,       KC_BSPC,        LT(3, KC_TAB),                  LT(2, KC_ESCAPE),KC_DELETE,      KC_ENTER
   ),
   [1] = LAYOUT_moonlander(
     KC_EQUAL,       KC_EXLM,        KC_AT,          KC_HASH,        KC_DLR,         KC_PERC,        TG(7),                                          KC_TRANSPARENT, KC_CIRC,        KC_AMPR,        KC_ASTR,        KC_LPRN,        KC_RPRN,        KC_MINUS,       
     TG(4),          KC_Q,           KC_W,           KC_F,           KC_P,           KC_B,           TG(8),                                          KC_TRANSPARENT, KC_J,           KC_L,           KC_U,           KC_I,           KC_SCLN,        KC_BSLS,        
     KC_PSCR,        MT(MOD_LGUI, KC_A),MT(MOD_LALT, KC_R),MT(MOD_LCTL, KC_S),MT(MOD_LSFT, KC_T),KC_G,           KC_HYPR,                                                                        KC_MEH,         KC_M,           MT(MOD_RSFT, KC_N),MT(MOD_RCTL, KC_E),MT(MOD_RALT, KC_I),MT(MOD_RGUI, KC_O),KC_QUOTE,       
-    CW_TOGG,        KC_Z,           KC_X,           KC_C,           KC_D,           KC_V,                                           KC_K,           KC_H,           KC_COMMA,       KC_DOT,         KC_SLASH,       TG(5),          
-    QK_BOOT,        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_HOME,        LT(6, KC_INSERT),                                                                                                KC_CAPS,        KC_END,         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_Z,           KC_X,           KC_C,           KC_D,           KC_V,                                           KC_K,           KC_H,           KC_COMMA,       KC_DOT,         KC_SLASH,       TG(5),          
+    QK_BOOT,        KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_HOME,        LT(6, KC_INSERT),                                                                                                CW_TOGG,        KC_END,         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_SPACE,       KC_BSPC,        LT(3, KC_TAB),                  LT(2, KC_ESCAPE),KC_DELETE,      KC_ENTER
   ),
   [2] = LAYOUT_moonlander(
