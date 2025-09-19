@@ -94,6 +94,10 @@ const uint16_t PROGMEM combo1[] = { MT(MOD_LSFT, KC_T), MT(MOD_LCTL, KC_S), COMB
 const uint16_t PROGMEM combo2[] = { MT(MOD_LALT, KC_R), MT(MOD_LCTL, KC_S), COMBO_END};
 const uint16_t PROGMEM combo3[] = { MT(MOD_RCTL, KC_E), MT(MOD_RALT, KC_I), COMBO_END};
 const uint16_t PROGMEM combo4[] = { KC_Q, KC_W, COMBO_END};
+const uint16_t PROGMEM combo5[] = { MT(MOD_RSFT, KC_J), MT(MOD_RCTL, KC_K), COMBO_END};
+const uint16_t PROGMEM combo6[] = { MT(MOD_LCTL, KC_D), MT(MOD_LSFT, KC_F), COMBO_END};
+const uint16_t PROGMEM combo7[] = { MT(MOD_LALT, KC_S), MT(MOD_LCTL, KC_D), COMBO_END};
+const uint16_t PROGMEM combo8[] = { MT(MOD_RCTL, KC_K), MT(MOD_RALT, KC_L), COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo0, KC_ESCAPE),
@@ -101,6 +105,10 @@ combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo2, KC_CAPS),
     COMBO(combo3, KC_ENTER),
     COMBO(combo4, LALT(KC_F4)),
+    COMBO(combo5, KC_ESCAPE),
+    COMBO(combo6, KC_TAB),
+    COMBO(combo7, KC_CAPS),
+    COMBO(combo8, KC_ENTER),
 };
 
 
