@@ -53,7 +53,7 @@ enum {
     TD_NEW_CLOSE_TAB,   // Single tap = new tab, double tap = close tab
 };
 
-qk_tap_dance_action_t tap_dance_actions[] = {
+tap_dance_action_t tap_dance_actions[] = {
     [TD_NEW_CLOSE_TAB] = ACTION_TAP_DANCE_DOUBLE(BR_NEW, BR_CLOSE),
 };
 
@@ -492,6 +492,6 @@ void keyboard_post_init_user(void) {
   if (detected_host_os() == OS_MACOS || detected_host_os() == OS_IOS) {
     keymap_config.swap_lalt_lgui = true;
     keymap_config.swap_ralt_rgui = true;
-    eeconfig_update_keymap(keymap_config.raw);
+    eeconfig_update_keymap(&keymap_config);
   }
 }
