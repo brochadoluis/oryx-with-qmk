@@ -102,12 +102,12 @@ const uint16_t PROGMEM combo8[] = { MT(MOD_RCTL, KC_K), MT(MOD_RALT, KC_L), COMB
 combo_t key_combos[COMBO_COUNT] = {
     COMBO(combo0, KC_ESCAPE),
     COMBO(combo1, KC_TAB),
-    COMBO(combo2, KC_CAPS),
+    COMBO(combo2, CW_TOGG),
     COMBO(combo3, KC_ENTER),
     COMBO(combo4, LALT(KC_F4)),
     COMBO(combo5, KC_ESCAPE),
     COMBO(combo6, KC_TAB),
-    COMBO(combo7, KC_CAPS),
+    COMBO(combo7, CW_TOGG),
     COMBO(combo8, KC_ENTER),
 };
 
