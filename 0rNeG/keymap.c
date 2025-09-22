@@ -138,6 +138,7 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_NEW_CLOSE_TAB] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, new_close_tab_finished, new_close_tab_reset),
 };
 
+
 // =============================================================================
 // KEYMAPS
 // =============================================================================
