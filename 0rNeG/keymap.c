@@ -49,14 +49,94 @@ enum custom_keycodes {
 // =============================================================================
 // TAP DANCE
 // =============================================================================
+typedef struct {
+    bool is_press_action;
+    uint8_t step;
+} tap;
+
 enum {
-    TD_NEW_CLOSE_TAB,   // Single tap = new tab, double tap = close tab
+    SINGLE_TAP = 1,
+    SINGLE_HOLD,
+    DOUBLE_TAP,
+    DOUBLE_HOLD,
+    DOUBLE_SINGLE_TAP,
+    MORE_TAPS
 };
+
+enum {
+    TD_NEW_CLOSE_TAB,
+};
+
+static tap dance_state[1]; 
+
+uint8_t dance_step(tap_dance_state_t *state) {
+    if (state->count == 1) {
+        if (state->interrupted || !state->pressed) return SINGLE_TAP;
+        else return SINGLE_HOLD;
+    } else if (state->count == 2) {
+        if (state->interrupted) return DOUBLE_SINGLE_TAP;
+        else if (state->pressed) return DOUBLE_HOLD;
+        else return DOUBLE_TAP;
+    }
+    return MORE_TAPS;
+}
+
+void on_new_close_tab(tap_dance_state_t *state, void *user_data);
+void new_close_tab_finished(tap_dance_state_t *state, void *user_data);
+void new_close_tab_reset(tap_dance_state_t *state, void *user_data);
+
+void new_close_tab_finished(tap_dance_state_t *state, void *user_data) {
+    dance_state[0].step = dance_step(state);
+    switch (dance_state[0].step) {
+      case SINGLE_TAP: 
+        // New tab - OS aware
+        switch (detected_host_os()) {
+          case OS_MACOS:
+          case OS_IOS:
+            tap_code16(LGUI(KC_T));
+            break;
+          default:
+            tap_code16(LCTL(KC_T));
+            break;
+        }
+        break;
+            
+      case DOUBLE_TAP: 
+        // Close tab - OS aware
+        switch (detected_host_os()) {
+          case OS_MACOS:
+          case OS_IOS:
+            tap_code16(LGUI(KC_W));
+            break;
+          default:
+            tap_code16(LCTL(KC_W));
+            break;
+        }
+        break;
+            
+      case DOUBLE_SINGLE_TAP: 
+        // Handle accidental double single tap as single tap
+        switch (detected_host_os()) {
+          case OS_MACOS:
+          case OS_IOS:
+            tap_code16(LGUI(KC_T));
+            break;
+          default:
+            tap_code16(LCTL(KC_T));
+            break;
+        }
+        break;
+    }
+}
+
+void new_close_tab_reset(tap_dance_state_t *state, void *user_data) {
+    wait_ms(10);
+    dance_state[0].step = 0;
+}
 
 tap_dance_action_t tap_dance_actions[] = {
-    [TD_NEW_CLOSE_TAB] = ACTION_TAP_DANCE_DOUBLE(BR_NEW, BR_CLOSE),
+    [TD_NEW_CLOSE_TAB] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, new_close_tab_finished, new_close_tab_reset),
 };
-
 
 // =============================================================================
 // KEYMAPS
@@ -79,10 +159,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_SPACE,       KC_BSPC,        LT(SYMBOLS, KC_TAB),                  LT(NAV, KC_ESCAPE),KC_DELETE,      KC_ENTER
   ),
   [NAV] = LAYOUT_moonlander(
-    KC_TRANSPARENT, KC_BRIGHTNESS_DOWN,KC_BRIGHTNESS_UP,SS_FULL, SS_AREA, SS_WINDOW, KC_TRANSPARENT,                                 KC_TRANSPARENT, SS_CLIPBOARD, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, KC_BRIGHTNESS_DOWN,KC_BRIGHTNESS_UP,RGB_TOG, RGB_VAD, RGB_VAI, RGB_MODE_FORWARD,                                 KC_TRANSPARENT, KC_AUDIO_MUTE, KC_AUDIO_VOL_DOWN, KC_AUDIO_VOL_UP, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_TRANSPARENT, UNDO,           REDO, CUT, COPY, PASTE, SELECT_ALL,                                 KC_TRANSPARENT, BR_REFRESH, KC_MEDIA_NEXT_TRACK,KC_MEDIA_PREV_TRACK,KC_MEDIA_PLAY_PAUSE,BR_FOCUS, KC_TRANSPARENT, 
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                                                 KC_TRANSPARENT, KC_LEFT,        KC_DOWN,        KC_UP,          KC_RIGHT,       KC_TRANSPARENT, KC_TRANSPARENT, 
-    KC_TRANSPARENT, BR_REOPEN,  TD(TD_NEW_CLOSE_TAB), BR_PREV, BR_NEXT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_AUDIO_MUTE,  KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_TRANSPARENT, BR_REOPEN,  TD(TD_NEW_CLOSE_TAB), BR_PREV, BR_NEXT, KC_TRANSPARENT,                                 KC_TRANSPARENT, SS_FULL, SS_AREA, SS_WINDOW, SS_CLIPBOARD, KC_TRANSPARENT, 
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                                                                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
   ),
@@ -201,34 +281,33 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 // =============================================================================
 layer_state_t layer_state_set_user(layer_state_t state) {
     switch (get_highest_layer(state)) {
-        case BASE_QWERTY:
-        case BASE_COLEMAK_DH:
-            // Base layers dark for focus
-            rgb_matrix_sethsv(0, 0, 0);
-            break;
-        case NAV:        // Cool blue
-            rgb_matrix_sethsv(155, 255, 120);
-            break;
-        case SYMBOLS:    // Warm orange
-            rgb_matrix_sethsv(8, 255, 150);
-            break;
-        case NUMPAD:     // Green
-            rgb_matrix_sethsv(102, 255, 100);
-            break;
-        case MOUSE:      // Vermillion
-            rgb_matrix_sethsv(16, 255, 130);
-            break;
-        case PT_NATIVE:  // Gold
-            rgb_matrix_sethsv(33, 255, 180);
-            break;
-        case GAMING:     // Magenta
-            rgb_matrix_sethsv(236, 255, 160);
-            break;
-        case PT_LAYOUT:  // Purple
-            rgb_matrix_sethsv(193, 255, 140);
-            break;
+      case BASE_QWERTY:
+      case BASE_COLEMAK_DH:
+        rgb_matrix_set_color_all(0, 0, 0);
+        break;    
+      case NAV:        // Ice Blue
+        rgb_matrix_set_color_all(100, 200, 255);  // #64C8FF
+        break;    
+      case SYMBOLS:    // Orange
+        rgb_matrix_set_color_all(255, 100, 0);   // #FF6400
+          break;  
+      case NUMPAD:     // Green
+        rgb_matrix_set_color_all(0, 180, 0);     // #00B400
+        break;    
+      case MOUSE:      // Coral
+        rgb_matrix_set_color_all(255, 80, 80);   // #FF5050
+        break;    
+      case PT_NATIVE:  // Purple
+        rgb_matrix_set_color_all(160, 100, 220); // #A064DC
+        break;      
+      case GAMING:     // Magenta
+        rgb_matrix_set_color_all(220, 0, 150);   // #DC0096
+        break;    
+      case PT_LAYOUT:  // Dark Purple
+        rgb_matrix_set_color_all(80, 50, 120);   // #503278
+        break;
     }
-    return state;
+  return state;
 }
 
 
@@ -448,9 +527,68 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         tap_code16(KC_EQL);    
         return false;
       case OP_GTE:
-      tap_code16(KC_RABK);    
-      tap_code16(KC_EQL);    
-      return false;
+        tap_code16(KC_RABK);    
+        tap_code16(KC_EQL);    
+        return false;
+      // Screenshot shortcuts
+      case SS_FULL:
+        switch (detected_host_os()) {
+          case OS_MACOS:
+          case OS_IOS:
+            tap_code16(LGUI(LSFT(KC_3)));
+            break;
+          default:
+            tap_code16(KC_PSCR);
+            break;
+        }
+        return false;
+        
+      case SS_AREA:
+        switch (detected_host_os()) {
+          case OS_MACOS:
+          case OS_IOS:
+            tap_code16(LGUI(LSFT(KC_4)));
+            break;
+          case OS_LINUX:
+            tap_code16(LSFT(KC_PSCR));
+            break;
+          default:
+            tap_code16(LGUI(LSFT(KC_S)));
+            break;
+        }
+        return false;
+        
+      case SS_WINDOW:
+        switch (detected_host_os()) {
+          case OS_MACOS:
+          case OS_IOS:
+            tap_code16(LGUI(LSFT(KC_4)));
+            wait_ms(100);
+            tap_code(KC_SPC);
+            break;
+          case OS_LINUX:
+            tap_code16(LALT(KC_PSCR));
+            break;
+          default:
+            tap_code16(LALT(KC_PSCR));
+            break;
+        }
+        return false;
+        
+      case SS_CLIPBOARD:
+        switch (detected_host_os()) {
+          case OS_MACOS:
+          case OS_IOS:
+            tap_code16(LGUI(LCTL(LSFT(KC_4))));
+            break;
+          case OS_LINUX:
+            tap_code16(LCTL(LSFT(KC_PSCR)));
+            break;
+          default:
+            tap_code16(LGUI(LSFT(KC_S)));
+            break;
+        }
+        return false;
     }
   }
 
