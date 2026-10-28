@@ -8,7 +8,7 @@
 #define PT_AMPR S(KC_6)
 #define PT_ASTR S(KC_LBRC)
 #define PT_LPRN S(KC_8)
-#define PT_OSX_RPRN S(KC_9)
+#define PT_RPRN S(KC_9)
 #define PT_MINS KC_SLSH
 #define PT_BSLS KC_GRV
 #define PT_CCED KC_SCLN
@@ -23,9 +23,7 @@
 #define PT_PLUS KC_LBRC
 #define PT_LABK KC_NUBS
 #define PT_RABK S(KC_NUBS)
-#define PT_OSX_SLSH S(KC_7)
 #define PT_QUES S(KC_MINS)
-#define PT_RPRN S(KC_9)
 #define PT_LBRC ALGR(KC_8)
 #define PT_RBRC ALGR(KC_9)
 #define PT_LCBR ALGR(KC_7)
