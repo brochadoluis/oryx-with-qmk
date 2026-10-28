@@ -1,5 +1,14 @@
-#define PT_TILD KC_NUHS
+#define PT_EQL S(KC_0)
+#define PT_OSX_EXLM S(KC_1)
+#define PT_OSX_AT A(KC_2)
+#define PT_HASH S(KC_3)
+#define PT_OSX_DLR S(KC_4)
+#define PT_OSX_PERC S(KC_5)
 #define PT_CIRC S(KC_NUHS)
+#define PT_AMPR S(KC_6)
+#define PT_OSX_ASTR S(KC_EQL)
+#define PT_LPRN S(KC_8)
+#define PT_TILD KC_NUHS
 #define PT_ACUT KC_RBRC
 #define PT_GRV S(KC_RBRC)
 #define PT_CCED KC_SCLN
