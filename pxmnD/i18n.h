@@ -6,7 +6,7 @@
 #define PT_OSX_PERC S(KC_5)
 #define PT_CIRC S(KC_NUHS)
 #define PT_AMPR S(KC_6)
-#define PT_OSX_ASTR S(KC_EQL)
+#define PT_ASTR S(KC_LBRC)
 #define PT_LPRN S(KC_8)
 #define PT_RPRN S(KC_9)
 #define PT_MINS KC_SLSH
@@ -30,11 +30,9 @@
 #define PT_RBRC ALGR(KC_9)
 #define PT_LCBR ALGR(KC_7)
 #define PT_OSX_RCBR S(A(KC_9))
-#define PT_ASTR S(KC_LBRC)
-#define PT_OSX_TILD KC_QUOT
 #define PT_ACUT KC_RBRC
 #define PT_OSX_LDAQ A(KC_X)
-#define PT_OSX_RDAQ S(A(KC_X))
+#define PT_RDAQ S(KC_EQL)
 #define PT_OSX_EURO A(KC_3)
 #define PT_OSX_MORD KC_LBRC
 #define PT_OSX_FORD S(KC_LBRC)
