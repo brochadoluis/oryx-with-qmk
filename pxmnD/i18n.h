@@ -1,6 +1,6 @@
 #define PT_EQL S(KC_0)
 #define PT_OSX_EXLM S(KC_1)
-#define PT_OSX_AT A(KC_2)
+#define PT_AT ALGR(KC_2)
 #define PT_HASH S(KC_3)
 #define PT_OSX_DLR S(KC_4)
 #define PT_OSX_PERC S(KC_5)
@@ -18,7 +18,7 @@
 #define PT_OSX_SLSH S(KC_7)
 #define PT_GRV S(KC_RBRC)
 #define PT_TILD KC_NUHS
-#define PT_OSX_PIPE S(KC_NUHS)
+#define PT_PIPE S(KC_GRV)
 #define PT_UNDS S(KC_SLSH)
 #define PT_PLUS KC_LBRC
 #define PT_OSX_LABK KC_NUBS
@@ -26,14 +26,14 @@
 #define PT_EXLM S(KC_1)
 #define PT_QUES S(KC_MINS)
 #define PT_OSX_RPRN S(KC_9)
-#define PT_OSX_LBRC A(KC_8)
+#define PT_LBRC ALGR(KC_8)
 #define PT_RBRC ALGR(KC_9)
 #define PT_LCBR ALGR(KC_7)
-#define PT_OSX_RCBR S(A(KC_9))
+#define PT_RCBR ALGR(KC_0)
 #define PT_ACUT KC_RBRC
-#define PT_OSX_LDAQ A(KC_X)
+#define PT_LDAQ KC_EQL
 #define PT_RDAQ S(KC_EQL)
-#define PT_OSX_EURO A(KC_3)
-#define PT_OSX_MORD KC_LBRC
-#define PT_OSX_FORD S(KC_LBRC)
+#define PT_EURO ALGR(KC_E)
+#define PT_MORD KC_QUOT
+#define PT_FORD S(KC_QUOT)
 #define PT_OSX_SCLN S(KC_COMM)
