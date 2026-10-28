@@ -15,10 +15,10 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = LAYOUT_moonlander(
-    PT_EQL,         PT_OSX_EXLM,    PT_AT,          PT_HASH,        PT_OSX_DLR,     PT_OSX_PERC,    TG(7),                                          KC_TRANSPARENT, PT_CIRC,        PT_AMPR,        PT_ASTR,        PT_LPRN,        PT_RPRN,        PT_MINS,        
+    PT_EQL,         PT_EXLM,        PT_AT,          PT_HASH,        PT_DLR,         PT_PERC,        TG(7),                                          KC_TRANSPARENT, PT_CIRC,        PT_AMPR,        PT_ASTR,        PT_LPRN,        PT_OSX_RPRN,    PT_MINS,        
     TG(4),          KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           PT_BSLS,        
     KC_PSCR,        MT(MOD_LGUI, KC_A),MT(MOD_LALT, KC_S),MT(MOD_LCTL, KC_D),MT(MOD_LSFT, KC_F),KC_G,           KC_HYPR,                                                                        KC_MEH,         KC_H,           MT(MOD_RSFT, KC_J),MT(MOD_RCTL, KC_K),MT(MOD_LALT, KC_L),MT(MOD_RGUI, PT_CCED),PT_QUOT,        
-    KC_TRANSPARENT, KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,                                           KC_N,           KC_M,           PT_COMM,        PT_DOT,         PT_OSX_SLSH,    TG(5),          
+    KC_TRANSPARENT, KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,                                           KC_N,           KC_M,           PT_COMM,        PT_DOT,         PT_SLSH,        TG(5),          
     QK_BOOT,        KC_F20,         KC_F21,         KC_TRANSPARENT, KC_HOME,        OSL(6),                                                                                                         CW_TOGG,        KC_END,         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_SPACE,       KC_BSPC,        LT(3, KC_TAB),                  LT(2, KC_ESCAPE),LT(8, KC_DELETE),KC_ENTER
   ),
@@ -26,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, TG(7),                                          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
     TG(4),          KC_Q,           KC_W,           KC_F,           KC_P,           KC_B,           KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_J,           KC_L,           KC_U,           KC_I,           PT_CCED,        PT_BSLS,        
     KC_PSCR,        MT(MOD_LGUI, KC_A),MT(MOD_LALT, KC_R),MT(MOD_LCTL, KC_S),MT(MOD_LSFT, KC_T),KC_G,           KC_HYPR,                                                                        KC_MEH,         KC_M,           MT(MOD_RSFT, KC_N),MT(MOD_RCTL, KC_E),MT(MOD_LALT, KC_I),MT(MOD_RGUI, KC_O),PT_QUOT,        
-    KC_TRANSPARENT, KC_Z,           KC_X,           KC_C,           KC_D,           KC_V,                                           KC_K,           KC_H,           PT_COMM,        PT_DOT,         PT_OSX_SLSH,    TG(5),          
+    KC_TRANSPARENT, KC_Z,           KC_X,           KC_C,           KC_D,           KC_V,                                           KC_K,           KC_H,           PT_COMM,        PT_DOT,         PT_SLSH,        TG(5),          
     QK_BOOT,        KC_F20,         KC_F21,         KC_TRANSPARENT, KC_HOME,        OSL(6),                                                                                                         CW_TOGG,        KC_END,         KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_SPACE,       KC_BSPC,        LT(3, KC_TAB),                  LT(2, KC_ESCAPE),LT(8, KC_DELETE),KC_ENTER
   ),
@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [3] = LAYOUT_moonlander(
     KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          KC_F6,          KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_F11,         KC_F12,         
     KC_TRANSPARENT, KC_TRANSPARENT, PT_GRV,         PT_TILD,        PT_PIPE,        KC_TRANSPARENT, KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_TRANSPARENT, PT_EXLM,        PT_OSX_SLSH,    PT_BSLS,        PT_QUES,        KC_TRANSPARENT, 
-    KC_TRANSPARENT, PT_UNDS,        PT_PLUS,        PT_MINS,        PT_OSX_LABK,    PT_RABK,        KC_TRANSPARENT,                                                                 KC_TRANSPARENT, PT_LPRN,        PT_OSX_RPRN,    PT_LBRC,        PT_RBRC,        PT_LCBR,        PT_RCBR,        
+    KC_TRANSPARENT, PT_UNDS,        PT_PLUS,        PT_MINS,        PT_LABK,        PT_RABK,        KC_TRANSPARENT,                                                                 KC_TRANSPARENT, PT_LPRN,        PT_RPRN,        PT_LBRC,        PT_RBRC,        PT_LCBR,        PT_RCBR,        
     KC_TRANSPARENT, KC_F15,         KC_F16,         KC_F13,         KC_F14,         KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_F17,         KC_F18,         KC_F19,         KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                                                                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [7] = LAYOUT_moonlander(
     KC_ESCAPE,      KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           PT_MINS,        
     KC_TRANSPARENT, KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           KC_TRANSPARENT,                                 KC_TRANSPARENT, KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           PT_BSLS,        
-    KC_LEFT_SHIFT,  KC_A,           KC_S,           KC_D,           KC_F,           KC_G,           KC_TRANSPARENT,                                                                 KC_TRANSPARENT, KC_H,           KC_J,           KC_K,           KC_L,           PT_OSX_SCLN,    PT_QUOT,        
+    KC_LEFT_SHIFT,  KC_A,           KC_S,           KC_D,           KC_F,           KC_G,           KC_TRANSPARENT,                                                                 KC_TRANSPARENT, KC_H,           KC_J,           KC_K,           KC_L,           PT_SCLN,        PT_QUOT,        
     KC_LEFT_CTRL,   KC_Z,           KC_X,           KC_C,           KC_V,           KC_B,                                           KC_N,           KC_M,           PT_COMM,        PT_DOT,         PT_OSX_SLSH,    KC_TRANSPARENT, 
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT,                                                                                                 KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_SPACE,       KC_BSPC,        KC_TAB,                         KC_ESCAPE,      KC_DELETE,      KC_ENTER
