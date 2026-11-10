@@ -36,8 +36,11 @@ static bool mac_mode(void) {
 }
 
 // Rebuild a QK_MODS keycode from a 5-bit mod mask and a basic keycode.
+// No QK_MODS prefix: QK_MODS == 0x0100 == the Left Ctrl bit, so OR-ing it in
+// would add Ctrl to every chord. The mod bits themselves put the keycode in
+// the QK_MODS range (mods is never 0 here).
 static uint16_t with_mods(uint8_t mods, uint16_t basic) {
-    return QK_MODS | ((uint16_t)mods << 8) | (basic & 0xFF);
+    return ((uint16_t)(mods & 0x1F) << 8) | (basic & 0xFF);
 }
 
 // Returns the keycode to send on macOS instead of `keycode`, or 0 to leave it.
