@@ -100,8 +100,7 @@ static uint16_t mac_symbol(uint16_t keycode) {
         case KC_NUHS: out = KC_QUOT; break;     // tilde / circumflex
         case KC_LBRC: out = KC_EQL;  break;     // + *
         case KC_QUOT: out = KC_LBRC; break;     // masculine / feminine ordinal
-        case KC_EQL:  out = A(KC_X); break;     // guillemets
-        case KC_NUBS: out = KC_GRV;  break;     // < > : macOS swaps NUBS/GRV on ISO boards
+        case KC_EQL:  out = A(KC_X); break;     // acute / grave
         default: return 0;
     }
     return out | ((uint16_t)mods << 8);         // keep Shift
