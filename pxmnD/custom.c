@@ -21,6 +21,8 @@
 //         Alt+Cmd+F/D/W/A   -> macOS screenshot chords
 //   HYPR  Super+key         -> Ctrl+Opt+Cmd+key (bind these in OmniWM)
 //         Super+L (lock)    -> Ctrl+Cmd+Q       (native lock)
+//   any   Linux-pt symbol positions -> macOS-Portuguese positions
+//         (mac_symbol below; Shift carries over, AltGr chords become Option)
 // F22 flips the detection result, for docks/KVMs that confuse it.
 
 #include "custom.h"
@@ -72,12 +74,62 @@ static uint16_t mac_translate(uint16_t keycode) {
     return 0;
 }
 
+// Linux xkb "pt" position -> macOS "Portuguese" position, same character.
+// Table measured on the work Mac 2026-11-11. Only plain / Shift / AltGr keys;
+// anything with Ctrl, Alt or GUI is left to mac_translate.
+static uint16_t mac_symbol(uint16_t keycode) {
+    uint8_t  mods  = QK_MODS_GET_MODS(keycode);
+    uint16_t basic = keycode & 0xFF;
+
+    if (mods == MOD_RALT) {                     // AltGr chords -> Option
+        switch (basic) {
+            case KC_2: return A(KC_2);          // @
+            case KC_7: return S(A(KC_8));       // {
+            case KC_8: return A(KC_8);          // [
+            case KC_9: return A(KC_9);          // ]
+            case KC_0: return S(A(KC_9));       // }
+            case KC_E: return A(KC_3);          // euro
+        }
+        return 0;
+    }
+    if (mods & ~(MOD_LSFT | MOD_RSFT)) return 0;
+
+    uint16_t out;
+    switch (basic) {
+        case KC_GRV:  out = KC_NUHS; break;     // backslash / pipe
+        case KC_NUHS: out = KC_QUOT; break;     // tilde / circumflex
+        case KC_LBRC: out = KC_EQL;  break;     // + *
+        case KC_QUOT: out = KC_LBRC; break;     // masculine / feminine ordinal
+        case KC_EQL:  out = A(KC_X); break;     // acute / grave
+        default: return 0;
+    }
+    return out | ((uint16_t)mods << 8);         // keep Shift
+}
+
+// Everything Mac mode may rewrite, or 0 to let the key through unchanged.
+static uint16_t mac_rewrite(uint16_t keycode) {
+    if (keycode >= QK_MODS && keycode <= QK_MODS_MAX) {
+        uint16_t out = mac_translate(keycode);
+        if (out) return out;
+    }
+    if (keycode < QK_MODS_MAX) {
+        return mac_symbol(keycode);
+    }
+    return 0;
+}
+
+// Send a key honouring Mac mode. Used by the operator macros.
+static void tap_mac(uint16_t keycode) {
+    uint16_t out = mac_mode() ? mac_symbol(keycode) : 0;
+    tap_code16(out ? out : keycode);
+}
+
 static bool process_mac_mode(uint16_t keycode, keyrecord_t *record) {
     if (keycode == KC_F22) {
         if (record->event.pressed) mac_override = !mac_override;
         return false;
     }
-    if (keycode < QK_MODS || keycode > QK_MODS_MAX || !mac_mode()) {
+    if (!mac_mode()) {
         return true;
     }
     // Resolve on press and remember it, so the release matches even if the
@@ -85,7 +137,7 @@ static bool process_mac_mode(uint16_t keycode, keyrecord_t *record) {
     static uint16_t held[8];
     static uint16_t sent[8];
     if (record->event.pressed) {
-        uint16_t out = mac_translate(keycode);
+        uint16_t out = mac_rewrite(keycode);
         if (!out) return true;
         for (int i = 0; i < 8; i++) {
             if (!held[i]) { held[i] = keycode; sent[i] = out; break; }
@@ -115,8 +167,8 @@ static bool process_mac_mode(uint16_t keycode, keyrecord_t *record) {
 #define PTX_MINS KC_SLSH     // -
 
 static void tap2(uint16_t a, uint16_t b) {
-    tap_code16(a);
-    tap_code16(b);
+    tap_mac(a);
+    tap_mac(b);
 }
 
 bool process_record_custom(uint16_t keycode, keyrecord_t *record) {
