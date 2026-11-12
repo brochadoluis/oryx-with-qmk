@@ -81,14 +81,16 @@ static uint16_t mac_symbol(uint16_t keycode) {
     uint8_t  mods  = QK_MODS_GET_MODS(keycode);
     uint16_t basic = keycode & 0xFF;
 
+    // Option chords go out on RIGHT Option: kitty's `macos_option_as_alt left`
+    // turns Left Option into Alt, which would swallow the character.
     if (mods == MOD_RALT) {                     // AltGr chords -> Option
         switch (basic) {
-            case KC_2: return A(KC_2);          // @
-            case KC_7: return S(A(KC_8));       // {
-            case KC_8: return A(KC_8);          // [
-            case KC_9: return A(KC_9);          // ]
-            case KC_0: return S(A(KC_9));       // }
-            case KC_E: return A(KC_3);          // euro
+            case KC_2: return ALGR(KC_2);          // @
+            case KC_7: return S(ALGR(KC_8));       // {
+            case KC_8: return ALGR(KC_8);          // [
+            case KC_9: return ALGR(KC_9);          // ]
+            case KC_0: return S(ALGR(KC_9));       // }
+            case KC_E: return ALGR(KC_3);          // euro
         }
         return 0;
     }
@@ -100,7 +102,7 @@ static uint16_t mac_symbol(uint16_t keycode) {
         case KC_NUHS: out = KC_QUOT; break;     // tilde / circumflex
         case KC_LBRC: out = KC_EQL;  break;     // + *
         case KC_QUOT: out = KC_LBRC; break;     // masculine / feminine ordinal
-        case KC_EQL:  out = A(KC_X); break;     // acute / grave
+        case KC_EQL:  out = ALGR(KC_X); break;     // guillemets
         default: return 0;
     }
     return out | ((uint16_t)mods << 8);         // keep Shift
